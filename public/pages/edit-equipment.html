@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>iLab - Edit Equipment</title>
+		<link rel="icon" href="/ilab-logo.png">
+
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/styles.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<script>
+			let params = (new URL(document.location)).searchParams;
+			let equipmentId = params.get("id");
+			
+			$.getJSON('/equipment.json', function(data) {
+				let equipment = data.equipment[equipmentId-1];
+
+				var hiddenId = `<input type="text" value="` + equipment.id + `"class="form-control" name="id" style="opacity: 0; height: 0; width: 0" required>`;
+				$(hiddenId).appendTo("#hidden-id");
+				
+				var name = `<input type="text" value="` + equipment.name + `"class="form-control" name="name" placeholder="Name" maxLength="50" required>`;
+				$(name).appendTo("#name");
+
+				switch (equipment.category) {
+					case '3D Printer':
+						document.getElementById("3dp").selected = true;
+						break;
+					case 'Arts & Crafts':
+						document.getElementById("ac").selected = true;
+						break;
+					case 'Electronics & Soldering':
+						document.getElementById("es").selected = true;
+						break;
+					case 'Paper Processing':
+						document.getElementById("pp").selected = true;
+						break;
+					case 'Video / Imaging':
+						document.getElementById("vi").selected = true;
+						break;
+					case 'Virtual Reality':
+						document.getElementById("vr").selected = true;
+						break;
+				}
+
+				switch (equipment.equipment_condition) {
+					case 'Excellent':
+						document.getElementById("e1").selected = true;
+						break;
+					case 'Good':
+						document.getElementById("g2").selected = true;
+						break;
+					case 'Fair':
+						document.getElementById("f3").selected = true;
+						break;
+					case 'Poor':
+						document.getElementById("p4").selected = true;
+						break;
+					case 'Failing / Critical':
+						document.getElementById("f5").selected = true;
+						break;
+					case 'Absent':
+						document.getElementById("a0").selected = true;
+						break;
+				}
+
+				switch (equipment.location) {
+					case 'iLab':
+						document.getElementById("ilab").selected = true;
+						break;
+					case 'Maker Studio':
+						document.getElementById("ms").selected = true;
+						break;
+					case 'Innovation Orchard':
+						document.getElementById("io").selected = true;
+						break;
+				}
+
+				switch (equipment.certification_req) {
+					case 'A':
+						document.getElementById("a").selected = true;
+						break;
+					case 'B':
+						document.getElementById("b").selected = true;
+						break;
+					case 'C':
+						document.getElementById("c").selected = true;
+						break;
+					case 'D':
+						document.getElementById("d").selected = true;
+						break;
+					case 'E':
+						document.getElementById("e").selected = true;
+						break;
+					case 'F':
+						document.getElementById("f").selected = true;
+						break;
+					case 'G':
+						document.getElementById("g").selected = true;
+						break;
+					case 'H':
+						document.getElementById("h").selected = true;
+						break;
+					case 'H1':
+						document.getElementById("h1").selected = true;
+						break;
+					case 'H2':
+						document.getElementById("h2").selected = true;
+						break;
+					case 'H3':
+						document.getElementById("h3").selected = true;
+						break;
+					case 'H4':
+						document.getElementById("h4").selected = true;
+						break;
+					case 'I':
+						document.getElementById("i").selected = true;
+						break;
+					case 'I1':
+						document.getElementById("i1").selected = true;
+						break;
+					case 'I2':
+						document.getElementById("i2").selected = true;
+						break;
+					case 'I3':
+						document.getElementById("i3").selected = true;
+						break;
+					case 'I4':
+						document.getElementById("i4").selected = true;
+						break;
+					default:
+						document.getElementById("none").selected = true;
+						break;
+				}
+
+				if (equipment.status == 'Ready') document.getElementById("ready").selected = true;
+				else document.getElementById("maintenance").selected = true;
+			});
+		</script>
+	</head>
+	
+	<body>
+
+		<div class="header">
+			<h1>Edit Equipment</h1>
+		</div>
+
+		<a href="index.html"><img class="logo" src="/ilab-logo.png" alt="iLab Logo"></a>
+
+		<form id="submit-form" action="/edit-equipment" method="POST">
+			<div id="hidden-id">
+				<!-- ID -->
+            </div>
+
+			<div class="form-group">
+				<label for="name">Name</label>
+				<div id="name">
+					<!-- EQUIPMENT NAME -->
+				</div>
+			</div>
+
+			<div class="container-fluid align-left" style="padding: 0">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="category">Category</label>
+							<select name="category" class="form-control" size="1" required>
+								<option value="" selected disabled hidden>--</option>
+								<option id="3dp" value="3D Printer">3D Printer</option>
+								<option id="ac" value="Arts & Crafts">Arts & Crafts</option>
+								<option id="es" value="Electronics & Soldering">Electronics & Soldering</option>
+								<option id="pp" value="Paper Processing">Paper Processing</option>
+								<option id="vi" value="Video / Imaging">Video / Imaging</option>
+								<option id="vr" value="Virtual Reality">Virtual Reality</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="condition">Condition</label>
+							<select name="condition" class="form-control" size="1" required>
+								<option value="" selected disabled hidden>--</option>
+								<option id="e1" value="Excellent">Excellent (1)</option>
+								<option id="g2" value="Good">Good (2)</option>
+								<option id="f3" value="Fair">Fair (3)</option>
+								<option id="p4" value="Poor">Poor (4)</option>
+								<option id="f5" value="Failing / Critical">Failing / Critical (5)</option>
+								<option id="a0" value="Absent">Absent (0)</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-fluid align-left" style="padding: 0">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="location">Location</label>
+							<select name="location" class="form-control" size="1" required>
+								<option value="" selected disabled hidden>--</option>
+								<option id="ilab" value="iLab">iLab</option>
+								<option id="ms" value="Maker Studio">Maker Studio</option>
+								<option id="io" value="Innovation Orchard">Innovation Orchard</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="certification">Certification Requirement</label>
+							<select name="certification" class="form-control" size="1" required>
+								<option id="none" value="none" selected>None</option>
+								<option id="a" value="A">A - 3D Printer</option>
+								<option id="b" value="B">B - Laser Cutter</option>
+								<option id="c" value="C">C - Sewing & Embroidery Machine</option>
+								<option id="d" value="D">D - Letterpress</option>
+								<option id="e" value="E">E - Resin Printer</option>
+								<option id="f" value="F">F - Vaquform Machine</option>
+								<option id="g" value="G">G - CNC Machines</option>
+								<option id="h" value="H">H - Yellow Wood Room</option>
+								<option id="h1" value="H1">H1 - Scroll Saw</option>
+								<option id="h2" value="H2">H2 - Sawzall</option>
+								<option id="h3" value="H3">H3 - Bench Grinder</option>
+								<option id="h4" value="H4">H4 - Planer</option>
+								<option id="i" value="I">I - Red Wood Room</option>
+								<option id="i1" value="I1">I1 - Mini Lathe</option>
+								<option id="i2" value="I2">I2 - Wood Turning Machine</option>
+								<option id="i3" value="I3">I3 - Angle Grinder</option>
+								<option id="i4" value="I4">I4 - Router Table</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="status">Status</label>
+				<select name="status" class="form-control" size="1" required>
+					<option value="" selected disabled hidden>--</option>
+					<option id="ready" value="Ready">Ready</option>
+					<option id="maintenance" value="Maintenance">Maintenance</option>
+				</select>
+			</div>
+
+			<br><br><br>
+
+			<div class="form-group align-center">
+				<input type="submit" class="btn btn-block" value="Submit">
+			</div>
+		</form>
+	</body>
+
+</html>

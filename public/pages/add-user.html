@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>iLab - Add New User</title>
+		<link rel="icon" href="/ilab-logo.png">
+
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/styles.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	
+	<body>
+
+		<div class="header">
+			<h1>Add New User</h1>
+		</div>
+
+		<a href="index.html"><img class="logo" src="/ilab-logo.png" alt="iLab Logo"></a>
+
+		<form id="submit-form" action="/submit-user" method="POST">
+			<div class="form-group">
+				<label for="inputName">Name</label>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm pad">
+							<input type="text" class="form-control" name="first_name" placeholder="First Name" maxLength="50" required autofocus>
+						</div>
+						<div class="col-sm">
+							<input type="text" class="form-control" name="last_name" placeholder="Last Name" maxLength="50" required>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="broncoId">Bronco ID#</label>
+				<input type="number" class="form-control" name="bronco_id" placeholder="Bronco ID#" minLength="9" maxLength="9" pattern="[0-9]*" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+			</div>
+
+			<div class="form-group">
+				<label for="email">E-mail</label>
+				<input type="email" class="form-control" name="email" placeholder="E-mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxLength="255" required>
+			</div>
+
+			<div class="form-group">
+				<label for="major">Major</label>
+				<input type="text" class="form-control" name="major" placeholder="Major" maxLength="30" required>
+			</div>
+
+			<div class="form-group">
+				<label for="position">Position</label>
+				<div class="container-fluid align-center">
+					<div class="row">
+						<div class="col-sm">
+							<label class="radioText"><input type="radio" class="radio" name="position" value="Student" checked="checked">&nbsp;&nbsp;Student</label>
+						</div>
+						<div class="col-sm">
+							<label class="radioText"><input type="radio" class="radio" name="position" value="Faculty">&nbsp;&nbsp;Faculty</label>
+						</div>
+						<div class="col-sm">
+							<label class="radioText"><input type="radio" class="radio" name="position" value="Other">&nbsp;&nbsp;<input type="text" placeholder="&nbsp;&nbsp;Other" name="other_text" maxLength="20" /></label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="certifications">Certifications</label>
+				<div class="container-fluid align-left">
+					<div class="row">
+						<div class="col-sm">
+							<input type="checkbox" class="checkbox" name="certifications" value="A">A - 3D Printer<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="B">B - Laser Cutter<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="C">C - Sewing & Embroidery Machine<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="D">D - Letterpress<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="E">E - Resin Printer<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="F">F - Vaquform Machine<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="G">G - CNC Machines<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="H">H - Yellow Wood Room<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="H1">H1 - Scroll Saw<br />
+						</div>
+
+						<div class="col-sm">
+							<input type="checkbox" class="checkbox" name="certifications" value="H2">H2 - Sawzall<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="H3">H3 - Bench Grinder<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="H4">H4 - Planer<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="I">I - Red Wood Room<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="I1">I1 - Mini Lathe<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="I2">I2 - Wood Turning Machine<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="I3">I3 - Angle Grinder<br />
+							<input type="checkbox" class="checkbox" name="certifications" value="I4">I4 - Router Table<br />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br /><hr />
+
+			<div class="form-group align-center">
+				<a href="https://cppilab.us17.list-manage.com/subscribe?u=4f0cc5066c97719b73421345b&id=caa5f5ca29" target="_blank">Subscribe</a> to our newsletter to receive updates on the latest news, events, and more!
+			</div>
+
+			<br /><br />
+
+			<div class="form-group align-center">
+				<input type="submit" class="btn btn-block" value="Submit">
+			</div>
+		</form>
+	</body>
+</html>

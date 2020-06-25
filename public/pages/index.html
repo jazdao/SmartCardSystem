@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>iLab Database Manager</title>
+		<link rel="icon" href="/ilab-logo.png">
+
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/styles.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<!-- SCRIPTS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="header">
+			<h1>iLab Database Manager</h1>
+		</div>
+
+		<a href="/index.html"><img class="logo" src="/ilab-logo.png" alt="iLab Logo"></a>
+
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<a class="nav-link active" data-toggle="tab" href="#overview"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;OVERVIEW</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#users"><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;USERS</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#equipment"><i class="fa fa-gears"></i>&nbsp;&nbsp;&nbsp;EQUIPMENT</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#printing-log"><i class="fa fa-cube"></i>&nbsp;&nbsp;&nbsp;3D PRINTING USER LOG</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#equipment-log"><i class="fa fa-clipboard"></i>&nbsp;&nbsp;&nbsp;EQUIPMENT USAGE LOG</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active container" id="overview">
+				<form action="/search-overview" form="POST">
+					<div class="row search">
+						<div class="col-2" style="padding: 0;">
+							<select name="location" class="form-control" size="1">
+								<option value="" selected disabled hidden>Location</option>
+								<option value="iLab">iLab</option>
+								<option value="Maker Studio">Maker Studio</option>
+								<option value="Innovation Orchard">Innovation Orchard</option>
+							</select>
+						</div>
+						
+						<div class="col-2" style="padding: 0;">
+							<select name="category" class="form-control" size="1">
+								<option value="" selected disabled hidden>Category</option>
+								<option value="3D Printer">3D Printer</option>
+								<option value="Arts & Crafts">Arts & Crafts</option>
+								<option value="Electronics & Soldering">Electronics & Soldering</option>
+								<option value="Paper Processing">Paper Processing</option>
+								<option value="Video / Imaging">Video / Imaging</option>
+								<option value="Virtual Reality">Virtual Reality</option>
+							</select>
+						</div>
+	
+						<div class="col-7" style="padding-right: 0; padding-left: 0;">
+							<input name="name" type="text" class="form-control" placeholder="Enter an equipment name">
+						</div>
+	
+						<div class="col-1" style="padding-left: 0;">
+							<button type="submit" class="btn search-btn"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+
+				<div class="user-num"><i class="fa fa-gears"></i>&nbsp;&nbsp;<span id="shown-overview"></span> / <b><span id="total-overview"></span></b> tools</div>
+
+				<table width="100%">
+					<thead>
+						<tr>
+							<th style="border-top-left-radius: .6em;">#</th>
+							<th>CATEGORY</th>
+							<th>NAME</th>
+							<th>LOCATION</th>
+							<th>STATUS</th>
+							<th>USED BY</th>
+						</tr>
+					</thead>
+					
+					<tbody id="overview-table">
+						<!-- REALTIME OVERVIEW LOADED HERE -->
+					</tbody>>
+				</table>
+			</div>
+
+			<div class="tab-pane container" id="users">
+				<form action="/search-user" method="POST">
+					<div class="row search">
+						<div class="col-1" style="padding-right: 0;">
+							<button type="button" class="btn filter-btn"><i class="fa fa-filter"></i></button>
+						</div>
+	
+						<div class="col-10" style="padding-right: 0; padding-left: 0;">
+							<input name="query" type="text" class="form-control" placeholder="Enter a Bronco ID#, name, or email">
+						</div>
+	
+						<div class="col-1" style="padding-left: 0;">
+							<button type="submit" class="btn search-btn"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+
+				<div class="user-num"><i class="fa fa-users"></i>&nbsp;&nbsp;<span id="shown-users"></span> / <b><span id="total-users"></span></b> users</div>
+
+				<a href="/add-user.html" title="Add User"><div class="add-u"><i class="fa fa-user-plus"></i></div></a>
+
+				<table width="100%">
+					<thead>
+						<tr>
+							<th style="border-top-left-radius: .6em;">#</th>
+							<th>DATE ADDED</th>
+							<th>BRONCO ID</th>
+							<th>LAST NAME</th>
+							<th>FIRST NAME</th>
+							<th>E-MAIL</th>
+							<th>POSITION</th>
+							<th>MAJOR</th>
+							<th>CERTIFICATIONS</th>
+							<th style="border-top-right-radius: .6em;">ACTIONS</th>
+						</tr>
+					</thead>
+
+					<tbody id="user-table">
+						<!-- USER DATA LOADED HERE -->
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane container" id="equipment">
+				<form action="/search-equipment" method="POST">
+					<div class="row search">
+						<div class="col-2" style="padding: 0;">
+							<select name="location" class="form-control" size="1">
+								<option value="" selected disabled hidden>Location</option>
+								<option value="iLab">iLab</option>
+								<option value="Maker Studio">Maker Studio</option>
+								<option value="Innovation Orchard">Innovation Orchard</option>
+							</select>
+						</div>
+						
+						<div class="col-2" style="padding: 0;">
+							<select name="category" class="form-control" size="1">
+								<option value="" selected disabled hidden>Category</option>
+								<option value="3D Printer">3D Printer</option>
+								<option value="Arts & Crafts">Arts & Crafts</option>
+								<option value="Electronics & Soldering">Electronics & Soldering</option>
+								<option value="Paper Processing">Paper Processing</option>
+								<option value="Video / Imaging">Video / Imaging</option>
+								<option value="Virtual Reality">Virtual Reality</option>
+							</select>
+						</div>
+	
+						<div class="col-7" style="padding-right: 0; padding-left: 0;">
+							<input type="text" class="form-control" placeholder="Enter a name">
+						</div>
+	
+						<div class="col-1" style="padding-left: 0;">
+							<button type="submit" class="btn search-btn"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+
+				<div class="user-num"><i class="fa fa-gears"></i>&nbsp;&nbsp;<span id="shown-equipment"></span> / <b><span id="total-equipment"></span></b> tools</div>
+
+				<a href="/add-equipment.html" title="Add Equipment"><div class="add-e"><i class="fa fa-plus"></i></div></a>
+
+				<table width="100%">
+					<thead>
+						<tr>
+							<th style="border-top-left-radius: .6em;">#</th>
+							<th>CATEGORY</th>
+							<th>NAME</th>
+							<th>CONDITION</th>
+							<th>CERTIFICATION REQUIREMENT</th>
+							<th>LOCATION</th>
+							<th>STATUS</th>
+							<th style="border-top-right-radius: .6em;">ACTIONS</th>
+						</tr>
+					</thead>
+					
+					<tbody id="equipment-table">
+						<!-- EQUIPMENT DATA LOADED HERE -->
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane container" id="printing-log">
+				<form action="search-printing-log" method="POST">
+					<div class="row search">
+						<div class="col-1" style="padding-right: 0;">
+							<button type="button" class="btn filter-btn"><i class="fa fa-filter"></i></button>
+						</div>
+	
+						<div class="col-10" style="padding-right: 0; padding-left: 0;">
+							<input type="text" class="form-control" placeholder="Enter a Bronco ID# or name">
+						</div>
+	
+						<div class="col-1" style="padding-left: 0;">
+							<button type="submit" class="btn search-btn"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+				
+				<div class="user-num"><i class="fa fa-users"></i>&nbsp;&nbsp;<span id="shown-hours"></span> / <b><span id="total-hours"></span></b> users</div>
+
+				<table width="100%">
+					<thead>
+						<tr>
+							<th style="border-top-left-radius: .6em;">#</th>
+							<th>BRONCO ID</th>
+							<th>LAST NAME</th>
+							<th>FIRST NAME</th>
+							<th>HOURS LEFT (iLab)</th>
+							<th>HOURS LEFT (IO)</th>
+							<th>HOURS LEFT (MS)</th>
+							<th>LAST USED EQUIPMENT</th>
+							<th>ACTIONS</th>
+						</tr>
+					</thead>
+					
+					<tbody id="printing-table">
+						<!-- 3D PRINTING USAGE DATA LOADED HERE -->
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane container" id="equipment-log">
+				<form action="/search-equipment-log" method="POST">
+					<div class="row search">
+						<div class="col-1" style="padding-right: 0;">
+							<button type="button" class="btn filter-btn"><i class="fa fa-filter"></i></button>
+						</div>
+	
+						<div class="col-10" style="padding-right: 0; padding-left: 0;">
+							<input type="text" class="form-control" placeholder="Enter an equipment name or location">
+						</div>
+		
+						<div class="col-1" style="padding-left: 0;">
+							<button type="submit" class="btn search-btn"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+	
+				<div class="user-num"><i class="fa fa-gears"></i>&nbsp;&nbsp;<span id="shown-time"></span> / <b><span id="total-time"></span></b> tools</div>
+	
+				<table width="100%">
+					<thead>
+						<tr>
+							<th style="border-top-left-radius: .6em;">DATE</th>
+							<th>START TIME</th>
+							<th>END TIME</th>
+							<th>TOTAL HOURS</th>
+							<th>EQUIPMENT</th>
+							<th>LOCATION</th>
+							<th>USED BY</th>
+						</tr>
+					</thead>
+	
+					<tbody id="equipment-usage-table">
+						<!-- EQUIPMENT USAGE DATA LOADED HERE -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- TOGGLE BETWEEN TABS -->
+		<script>
+			$(document).ready(function() {
+				$(".nav-tabs a").click(function() {
+					$(this).tab('show');
+				});
+			});
+
+			// Javascript to enable link to tab
+			var url = document.location.toString();
+			if (url.match('#')) {
+				$('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+			} 
+
+			// Change hash for page-reload
+			$('.nav-tabs a').on('shown.bs.tab', function (e) {
+				window.location.hash = e.target.hash;
+				window.scrollTo(0, 0);
+			})
+		</script>
+
+		<!-- LOAD TABLE DATA -->
+		<script>
+			$(function() {
+				var table;
+				
+				// Load user data
+				var users = [];
+				$.getJSON('/users.json', function(data) {
+					let shown = "<span>" + data.users.length + "</span>";
+					let total = "<span>" + data.users.length + "</span>";
+					$(shown).appendTo("#shown-users");
+					$(total).appendTo("#total-users");
+
+					$.each(data.users, function(i, f) {
+						table = 'users';
+
+						var tblRow = "<tr>" + 
+							"<td>" + (i+1) + "</td>" +
+							"<td>" + f.date_added + "</td>" + 
+							"<td>" + f.bronco_id + "</td>" + 
+							"<td>" + f.last_name + "</td>" + 
+							"<td>" + f.first_name + "</td>" + 
+							"<td>" + f.email + "</td>" + 
+							"<td>" + f.position + "</td>" + 
+							"<td>" + f.major + "</td>" + 
+							"<td>" + f.certifications + "</td>" + 
+							"<td>" +
+								`<a href="/edit-user.html?id=` + (i+1) + `" class="icon" title="Edit"><i class="fa fa-edit"></i></a>` + 
+								`<a href="javascript:deleteEntry(` + f.id + `, 'users')" class="icon" title="Delete"><i class="fa fa-trash"></i></a>` +
+							"</td>" +
+							"</tr>";
+						$(tblRow).appendTo("#user-table");
+					});
+				});
+
+
+				// Load equipment data
+				var equipment = [];
+				$.getJSON('/equipment.json', function(data) {
+					let shown = "<span>" + data.equipment.length + "</span>";
+					let total = "<span>" + data.equipment.length + "</span>";
+					$(shown).appendTo("#shown-equipment");
+					$(total).appendTo("#total-equipment");
+					
+					$.each(data.equipment, function(i, f) {
+						table = 'equipment';
+
+						var tblRow = "<tr>" + 
+							"<td>" + (i+1) + "</td>" +
+							"<td>" + f.category + "</td>" + 
+							"<td>" + f.name + "</td>" + 
+							"<td>" + f.equipment_condition + "</td>" + 
+							"<td>" + f.certification_req + "</td>" + 
+							"<td>" + f.location + "</td>" + 
+							"<td>" + f.status + "</td>" + 
+							"<td>" +
+								`<a href="/edit-equipment.html?id=` + (i+1) + `" class="icon" title="Edit"><i class="fa fa-edit"></i></a>` + 
+								`<a href="javascript:deleteEntry(` + f.id + `, 'equipment')" class="icon" title="Delete"><i class="fa fa-trash"></i></a>` +
+							"</td>" +
+							"</tr>";
+						$(tblRow).appendTo("#equipment-table");
+					});
+				});
+
+
+				// Load 3D printing usage data
+				var printing_log = [];
+				$.getJSON('/printing_log.json', function(data) {
+					let shown = "<span>" + data.printing_log.length + "</span>";
+					let total = "<span>" + data.printing_log.length + "</span>";
+					$(shown).appendTo("#shown-hours");
+					$(total).appendTo("#total-hours");
+
+					$.each(data.printing_log, function(i, f) {
+						var tblRow = "<tr>" + 
+							"<td>" + (i+1) + "</td>" +
+							"<td>" + f.bronco_id + "</td>" + 
+							"<td>" + f.last_name + "</td>" + 
+							"<td>" + f.first_name + "</td>" + 
+							"<td>" + f.ilab + "</td>" + 
+							"<td>" + f.io + "</td>" + 
+							"<td>" + f.ms + "</td>" + 
+							"<td>" + f.last_used + "</td>" +
+							"<td>" +
+								`<a href="/edit-hours.html?id=` + (i+1) + `" class="icon" title="Edit"><i class="fa fa-edit"></i></a>` +
+							"</td" +
+							"</tr>";
+						$(tblRow).appendTo("#printing-table");
+					});
+				});
+			});
+
+			// Delete an entry
+			function deleteEntry(deleteId, tableName) {
+				console.log(deleteId + " " + tableName);
+				var answer = window.confirm("Delete this entry?")
+				if (answer) {
+					$.post('/delete', {id: deleteId, table: tableName});
+					setTimeout(location.reload.bind(location), 1000);
+				}
+			}
+		</script>
+	</body>
+
+</html>

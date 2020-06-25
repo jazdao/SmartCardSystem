@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "date_added": "05/23/20",
+      "bronco_id": "011911640",
+      "last_name": "Dao",
+      "first_name": "Jasmine",
+      "email": "jldao@cpp.edu",
+      "position": "Student",
+      "major": "Computer Science",
+      "certifications": "A "
+    }
+  ]
+}

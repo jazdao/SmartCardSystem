@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>iLab - Edit User</title>
+		<link rel="icon" href="/ilab-logo.png">
+
+		<link rel="stylesheet" href="/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <script>
+            let params = (new URL(document.location)).searchParams;
+            let userId = params.get("id");
+            
+            $.getJSON('/users.json', function(data) {
+                let user = data.users[userId-1];
+
+                var hiddenId = `<input type="text" value="` + user.id + `"class="form-control" name="id" style="opacity: 0; height: 0" required>`;
+                $(hiddenId).appendTo("#hidden-id");
+
+                var firstName = `<input type="text" value="` + user.first_name + `" class="form-control" name="first_name" placeholder="First Name" maxLength="50" required autofocus>`;
+                $(firstName).appendTo("#first-name");
+
+                var lastName = `<input type="text" value="` + user.last_name + `"class="form-control" name="last_name" placeholder="Last Name" maxLength="50" required>`;
+                $(lastName).appendTo("#last-name");
+
+                var broncoId = `<input type="number" value="` + user.bronco_id + `"class="form-control" name="bronco_id" placeholder="Bronco ID#" minLength="9" maxLength="9" pattern="[0-9]*" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">`;
+                $(broncoId).appendTo("#bronco-id");
+
+                var email = `<input type="email" value="` + user.email + `"class="form-control" name="email" placeholder="E-mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxLength="255" required>`;
+                $(email).appendTo("#email");
+
+                var major = `<input type="text" value="` + user.major + `"class="form-control" name="major" placeholder="Major" required>`;
+                $(major).appendTo("#major");
+
+                switch (user.position) {
+                    case 'Student':
+                        document.getElementById("student").checked = true;
+                        var otherText = `<input type="text" placeholder="&nbsp;&nbsp;Other" name="other_text" />`;
+                        $(otherText).appendTo("#other-text");
+                        break;
+                    case 'Faculty':
+                        document.getElementById("faculty").checked = true;
+                        var otherText = `<input type="text" placeholder="&nbsp;&nbsp;Other" name="other_text" />`;
+                        $(otherText).appendTo("#other-text");
+                        break;
+                    default:
+                        document.getElementById("other").checked = true;
+                        var otherText = `<input type="text" value="` + user.position + `"placeholder="&nbsp;&nbsp;Other" name="other_text" />`;
+                        $(otherText).appendTo("#other-text");
+                        break;
+                }
+
+                let certifications = user.certifications.split(" ");
+                for (var i = 0; i < certifications.length; i++) {
+                    switch (certifications[i]) {
+                        case 'A':
+                            document.getElementById("a").checked = true;
+                            break;
+                        case 'B':
+                            document.getElementById("b").checked = true;
+                            break;
+                        case 'C':
+                            document.getElementById("c").checked = true;
+                            break;
+                        case 'D':
+                            document.getElementById("d").checked = true;
+                            break;
+                        case 'E':
+                            document.getElementById("e").checked = true;
+                            break;
+                        case 'F':
+                            document.getElementById("f").checked = true;
+                            break;
+                        case 'G':
+                            document.getElementById("g").checked = true;
+                            break;
+                        case 'H':
+                            document.getElementById("h").checked = true;
+                            break;
+                        case 'H1':
+                            document.getElementById("h1").checked = true;
+                            break;
+                        case 'H2':
+                            document.getElementById("h2").checked = true;
+                            break;
+                        case 'H3':
+                            document.getElementById("h3").checked = true;
+                            break;
+                        case 'H4':
+                            document.getElementById("h4").checked = true;
+                            break;
+                        case 'I':
+                            document.getElementById("i").checked = true;
+                            break;
+                        case 'I1':
+                            document.getElementById("i1").checked = true;
+                            break;
+                        case 'I2':
+                            document.getElementById("i2").checked = true;
+                            break;
+                        case 'I3':
+                            document.getElementById("i3").checked = true;
+                            break;
+                        case 'I4':
+                            document.getElementById("i4").checked = true;
+                            break;
+                    }
+                }
+            });
+        </script>
+	</head>
+	
+	<body>
+
+		<div class="header">
+			<h1>Edit User</h1>
+		</div>
+
+		<a href="index.html"><img class="logo" src="/ilab-logo.png" alt="iLab Logo"></a>
+
+        <form id="submit-form" action="/edit-user" method="POST">
+            <div id="hidden-id">
+                <!-- ID -->
+            </div>
+
+			<div class="form-group">
+				<label for="inputName">Name</label>
+				<div class="container-fluid">
+					<div class="row">
+						<div id="first-name" class="col-sm pad">
+							<!-- FIRST NAME -->
+						</div>
+						<div id="last-name" class="col-sm">
+							<!-- LAST NAME -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+                <label for="broncoId">Bronco ID#</label>
+                <div id="bronco-id">
+                    <!-- BRONCO ID# -->
+                </div>
+			</div>
+
+			<div class="form-group">
+                <label for="email">E-mail</label>
+                <div id="email">
+                    <!-- EMAIL -->
+                </div>
+			</div>
+
+			<div class="form-group">
+                <label for="major">Major</label>
+                <div id="major">
+                    <!-- MAJOR -->
+                </div>
+			</div>
+
+			<div class="form-group">
+				<label for="position">Position</label>
+				<div class="container-fluid align-center">
+					<div class="row">
+						<div class="col-sm">
+							<label class="radioText"><input type="radio" id="student" class="radio" name="student" value="Student">&nbsp;&nbsp;Student</label>
+						</div>
+						<div class="col-sm">
+							<label class="radioText"><input type="radio" id="faculty" class="radio" name="faculty" value="Faculty">&nbsp;&nbsp;Faculty</label>
+						</div>
+						<div class="col-sm">
+							<label class="radioText"><input type="radio" id="other" class="radio" name="other" value="">&nbsp;&nbsp;<span id="other-text"><!-- OTHER TEXT HERE --></span></label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="certifications">Certifications</label>
+				<div class="container-fluid align-left">
+					<div class="row">
+						<div class="col-sm">
+							<input id="a" type="checkbox" class="checkbox" name="certifications" value="A">A - 3D Printer<br />
+							<input id="b" type="checkbox" class="checkbox" name="certifications" value="B">B - Laser Cutter<br />
+							<input id="c" type="checkbox" class="checkbox" name="certifications" value="C">C - Sewing & Embroidery Machine<br />
+							<input id="d" type="checkbox" class="checkbox" name="certifications" value="D">D - Letterpress<br />
+							<input id="e" type="checkbox" class="checkbox" name="certifications" value="E">E - Resin Printer<br />
+							<input id="f" type="checkbox" class="checkbox" name="certifications" value="F">F - Vaquform Machine<br />
+							<input id="g" type="checkbox" class="checkbox" name="certifications" value="G">G - CNC Machines<br />
+							<input id="h" type="checkbox" class="checkbox" name="certifications" value="H">H - Yellow Wood Room<br />
+							<input id="h1" type="checkbox" class="checkbox" name="certifications" value="H1">H1 - Scroll Saw<br />
+						</div>
+
+						<div class="col-sm">
+							<input id="h2" type="checkbox" class="checkbox" name="certifications" value="H2">H2 - Sawzall<br />
+							<input id="h3" type="checkbox" class="checkbox" name="certifications" value="H3">H3 - Bench Grinder<br />
+							<input id="h4" type="checkbox" class="checkbox" name="certifications" value="H4">H4 - Planer<br />
+							<input id="i" type="checkbox" class="checkbox" name="certifications" value="I">I - Red Wood Room<br />
+							<input id="i1" type="checkbox" class="checkbox" name="certifications" value="I1">I1 - Mini Lathe<br />
+							<input id="i2" type="checkbox" class="checkbox" name="certifications" value="I2">I2 - Wood Turning Machine<br />
+							<input id="i3" type="checkbox" class="checkbox" name="certifications" value="I3">I3 - Angle Grinder<br />
+							<input id="i4" type="checkbox" class="checkbox" name="certifications" value="I4">I4 - Router Table<br />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br /><hr />
+
+			<div class="form-group align-center">
+				<a href="https://cppilab.us17.list-manage.com/subscribe?u=4f0cc5066c97719b73421345b&id=caa5f5ca29" target="_blank">Subscribe</a> to our newsletter to receive updates on the latest news, events, and more!
+			</div>
+
+			<br /><br />
+
+			<div class="form-group align-center">
+				<input type="submit" class="btn btn-block" value="Submit">
+			</div>
+		</form>
+	</body>
+</html>

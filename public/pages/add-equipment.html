@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>iLab - Add New Equipment</title>
+		<link rel="icon" href="/ilab-logo.png">
+
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/styles.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	
+	<body>
+
+		<div class="header">
+			<h1>Add New Equipment</h1>
+		</div>
+
+		<a href="index.html"><img class="logo" src="/ilab-logo.png" alt="iLab Logo"></a>
+
+		<form id="submit-form" action="/submit-equipment" method="POST">
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" class="form-control" name="name" placeholder="Name" maxLength="50" required autofocus>
+			</div>
+
+			<div class="container-fluid align-left" style="padding: 0">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="category">Category</label>
+							<select name="category" class="form-control" size="1" required>
+								<option value="" selected disabled hidden>--</option>
+								<option value="3D Printer">3D Printer</option>
+								<option value="Arts & Crafts">Arts & Crafts</option>
+								<option value="Electronics & Soldering">Electronics & Soldering</option>
+								<option value="Paper Processing">Paper Processing</option>
+								<option value="Video / Imaging">Video / Imaging</option>
+								<option value="Virtual Reality">Virtual Reality</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="condition">Condition</label>
+							<select name="condition" class="form-control" size="1" required>
+								<option value="" selected disabled hidden>--</option>
+								<option value="Excellent">Excellent (1)</option>
+								<option value="Good">Good (2)</option>
+								<option value="Fair">Fair (3)</option>
+								<option value="Poor">Poor (4)</option>
+								<option value="Failing / Critical">Failing / Critical (5)</option>
+								<option value="Absent">Absent (0)</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-fluid align-left" style="padding: 0">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="location">Location</label>
+							<select name="location" class="form-control" size="1" required>
+								<option value="" selected disabled hidden>--</option>
+								<option value="iLab">iLab</option>
+								<option value="Maker Studio">Maker Studio</option>
+								<option value="Innovation Orchard">Innovation Orchard</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="certification">Certification Requirement</label>
+							<select name="certification" class="form-control" size="1" required>
+								<option value="none" selected>None</option>
+								<option value="A">A - 3D Printer</option>
+								<option value="B">B - Laser Cutter</option>
+								<option value="C">C - Sewing & Embroidery Machine</option>
+								<option value="D">D - Letterpress</option>
+								<option value="E">E - Resin Printer</option>
+								<option value="F">F - Vaquform Machine</option>
+								<option value="G">G - CNC Machines</option>
+								<option value="H">H - Yellow Wood Room</option>
+								<option value="H1">H1 - Scroll Saw</option>
+								<option value="H2">H2 - Sawzall</option>
+								<option value="H3">H3 - Bench Grinder</option>
+								<option value="H4">H4 - Planer</option>
+								<option value="I">I - Red Wood Room</option>
+								<option value="I1">I1 - Mini Lathe</option>
+								<option value="I2">I2 - Wood Turning Machine</option>
+								<option value="I3">I3 - Angle Grinder</option>
+								<option value="I4">I4 - Router Table</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="status">Status</label>
+				<select name="status" class="form-control" size="1" required>
+					<option value="" selected disabled hidden>--</option>
+					<option value="Ready">Ready</option>
+					<option value="Maintenance">Maintenance</option>
+				</select>
+			</div>
+
+			<br><br><br>
+
+			<div class="form-group align-center">
+				<input type="submit" class="btn btn-block" value="Submit">
+			</div>
+		</form>
+	</body>
+
+</html>

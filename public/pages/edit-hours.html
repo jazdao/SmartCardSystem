@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>iLab - Edit 3D Printing Hours</title>
+		<link rel="icon" href="/ilab-logo.png">
+
+		<link rel="stylesheet" href="/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <script>
+            let params = (new URL(document.location)).searchParams;
+            let id = params.get("id");
+            
+            $.getJSON('/printing_log.json', function(data) {
+                let user = data.printing_log[id-1];
+
+                var hiddenId = `<input type="text" value="` + user.id + `"class="form-control" name="id" style="opacity: 0; height: 0" required>`;
+                $(hiddenId).appendTo("#hidden-id");
+
+                var firstName = `<input type="text" value="` + user.first_name + `" class="form-control" name="first_name" placeholder="First Name" disabled>`;
+                $(firstName).appendTo("#first-name");
+
+                var lastName = `<input type="text" value="` + user.last_name + `"class="form-control" name="last_name" placeholder="Last Name" disabled>`;
+                $(lastName).appendTo("#last-name");
+
+                var broncoId = `<input type="number" value="` + user.bronco_id + `"class="form-control" name="bronco_id" placeholder="Bronco ID#" minLength="9" maxLength="9" pattern="[0-9]*" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" disabled>`;
+                $(broncoId).appendTo("#bronco-id");
+
+                var ilab = `<input type="number" value="` + user.ilab + `"class="form-control" name="ilab" maxLength="2">`;
+                $(ilab).appendTo("#ilab");
+
+                var io = `<input type="number" value="` + user.io + `"class="form-control" name="io" maxLength="2">`;
+                $(io).appendTo("#io");
+
+                var ms = `<input type="number" value="` + user.ms + `"class="form-control" name="ms" maxLength="2">`;
+                $(ms).appendTo("#ms");
+
+                var lastUsed = `<input type="text" value="` + user.last_used + `"class="form-control" name="last_used" disabled>`;
+                $(lastUsed).appendTo("#last-used");
+            });
+        </script>
+	</head>
+	
+	<body>
+
+		<div class="header">
+			<h1>Edit 3D Printing Hours</h1>
+		</div>
+
+		<a href="index.html"><img class="logo" src="/ilab-logo.png" alt="iLab Logo"></a>
+
+        <form id="submit-form" action="/edit-hours" method="POST">
+            <div id="hidden-id">
+                <!-- ID -->
+            </div>
+
+			<div class="form-group">
+				<label for="inputName">Name</label>
+				<div class="container-fluid">
+					<div class="row">
+						<div id="first-name" class="col-sm pad">
+							<!-- FIRST NAME -->
+						</div>
+						<div id="last-name" class="col-sm">
+							<!-- LAST NAME -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+                <label for="broncoId">Bronco ID#</label>
+                <div id="bronco-id">
+                    <!-- BRONCO ID# -->
+                </div>
+			</div>
+
+			<div class="form-group">
+                <label for="ilab">iLab</label>
+                <div id="ilab">
+                    <!-- ILAB -->
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="ms">Maker Studio</label>
+                <div id="ms">
+                    <!-- MAKER STUDIO -->
+                </div>
+			</div>
+
+			<div class="form-group">
+                <label for="io">Innovation Orchard</label>
+                <div id="io">
+                    <!-- INNOVATION ORCHARD -->
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="last-used">Last Used</label>
+                <div id="last-used">
+                    <!-- LAST USED -->
+                </div>
+			</div>
+
+			<br /><hr />
+			<br /><br />
+
+			<div class="form-group align-center">
+				<input type="submit" class="btn btn-block" value="Submit">
+			</div>
+		</form>
+	</body>
+</html>
